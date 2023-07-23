@@ -44,6 +44,8 @@ async function changeRoom(bookingId: number, roomId: number) {
   const roomIsBooked = await bookingRepository.getBookingByRoomId(roomId);
 
   if (roomIsBooked) throw { name: 'BookingError' };
+
+  return await bookingRepository.changeRoom(bookingId, roomId);
 }
 
 const bookingService = {

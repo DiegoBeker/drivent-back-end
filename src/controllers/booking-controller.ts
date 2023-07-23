@@ -2,7 +2,6 @@ import httpStatus from 'http-status';
 import { Response } from 'express';
 import { Booking, Room } from '@prisma/client';
 import bookingService from '../services/booking-service';
-import bookingRepository from '../repositories/booking-repository';
 import { AuthenticatedRequest } from '@/middlewares';
 
 export async function getBooking(req: AuthenticatedRequest, res: Response) {
@@ -26,7 +25,7 @@ export async function bookRoom(req: AuthenticatedRequest, res: Response) {
 
   if (isNaN(roomId)) throw { name: 'BadRequest' };
 
-  const booking = await bookingRepository.bookRoom(userId, roomId);
+  const booking = await bookingService.bookRoom(userId, roomId);
 
   return res.status(httpStatus.OK).send({ bookingId: booking.id });
 }
@@ -39,7 +38,7 @@ export async function changeRoom(req: AuthenticatedRequest, res: Response) {
 
   if (isNaN(Number(bookingId))) throw { name: 'BadRequest' };
 
-  const booking = await bookingRepository.changeRoom(Number(bookingId), roomId);
+  const booking = await bookingService.changeRoom(Number(bookingId), roomId);
 
   return res.status(httpStatus.OK).send({ bookingId: booking.id });
 }
