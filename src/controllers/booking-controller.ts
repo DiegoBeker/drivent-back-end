@@ -33,12 +33,13 @@ export async function bookRoom(req: AuthenticatedRequest, res: Response) {
 export async function changeRoom(req: AuthenticatedRequest, res: Response) {
   const { bookingId } = req.params;
   const { roomId } = req.body;
+  const { userId } = req;
 
   if (isNaN(roomId)) throw { name: 'BadRequest' };
 
   if (isNaN(Number(bookingId))) throw { name: 'BadRequest' };
 
-  const booking = await bookingService.changeRoom(Number(bookingId), roomId);
+  const booking = await bookingService.changeRoom(Number(bookingId), roomId, userId);
 
   return res.status(httpStatus.OK).send({ bookingId: booking.id });
 }

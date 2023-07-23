@@ -32,10 +32,11 @@ async function bookRoom(userId: number, roomId: number) {
   return await bookingRepository.bookRoom(userId, roomId);
 }
 
-async function changeRoom(bookingId: number, roomId: number) {
+async function changeRoom(bookingId: number, roomId: number, userId: number) {
   const bookingExists = await bookingRepository.getBookingById(bookingId);
 
   if (!bookingExists) throw notFoundError();
+  if (bookingExists.userId !== userId) throw { name: 'BookingError' };
 
   const room = await roomRepository.getRoomById(roomId);
 
