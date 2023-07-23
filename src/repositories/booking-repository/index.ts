@@ -15,11 +15,7 @@ async function getBookingByUserId(userId: number) {
       userId,
     },
     include: {
-      Room: {
-        include: {
-          Hotel: true,
-        },
-      },
+      Room: true,
     },
   });
 }

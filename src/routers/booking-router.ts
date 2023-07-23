@@ -4,10 +4,6 @@ import { bookRoom, changeRoom, getBooking } from '../controllers/booking-control
 
 const bookingRouter = Router();
 
-bookingRouter
-  .all('/*', authenticateToken)
-  .get('/booking', getBooking)
-  .post('/booking', bookRoom)
-  .put('/booking/:bookingId', changeRoom);
+bookingRouter.all('/*', authenticateToken).get('/', getBooking).post('/', bookRoom).put('/:bookingId', changeRoom);
 
 export default bookingRouter;
