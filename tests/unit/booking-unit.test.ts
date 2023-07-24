@@ -6,6 +6,7 @@ import { buildBooking } from '../factories/booking-factory';
 import { notFoundError } from '@/errors';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import ticketsRepository from '@/repositories/tickets-repository';
+import { Booking, Room } from '@prisma/client';
 
 describe('Bookings unit tests', () => {
   beforeEach(() => {
@@ -42,19 +43,19 @@ describe('Bookings unit tests', () => {
   });
 
   describe('Post booking unit tests', () => {
-    // it('Should return a booking when post is successful', async () => {
-    //   const mockedRoom = buildRoom(1, 1);
-    //   jest.spyOn(roomRepository, 'getRoomById').mockResolvedValueOnce(mockedRoom);
-    //   jest.spyOn(bookingRepository, 'getBookingByRoomId').mockResolvedValueOnce(null);
-    //   const mockedEnrollment = buildEnrollment(1);
-    //   jest.spyOn(enrollmentRepository, 'findWithAddressByUserId').mockResolvedValueOnce(mockedEnrollment);
-    //   const mockedTicket = buildTicket(mockedEnrollment.id, true, false, true);
-    //   jest.spyOn(ticketsRepository, 'findTicketByEnrollmentId').mockResolvedValueOnce(mockedTicket);
-    //   const mockedBooking = buildBooking(1, 1);
-    //   jest.spyOn(bookingRepository, 'bookRoom').mockResolvedValueOnce(mockedBooking);
-    //   const booking = await bookingService.bookRoom(1, 1);
-    //   expect(booking).toEqual(mockedBooking);
-    // });
+    it('Should return a booking when post is successful', async () => {
+      const mockedRoom = buildRoom(1, 1);
+      jest.spyOn(roomRepository, 'getRoomById').mockResolvedValueOnce(mockedRoom);
+      jest.spyOn(bookingRepository, 'getBookingByRoomId').mockResolvedValueOnce(null);
+      const mockedEnrollment = buildEnrollment(1);
+      jest.spyOn(enrollmentRepository, 'findWithAddressByUserId').mockResolvedValueOnce(mockedEnrollment);
+      const mockedTicket = buildTicket(mockedEnrollment.id, true, false, true);
+      jest.spyOn(ticketsRepository, 'findTicketByEnrollmentId').mockResolvedValueOnce(mockedTicket);
+      const mockedBooking = buildBooking(1, 1);
+      jest.spyOn(bookingRepository, 'bookRoom').mockResolvedValueOnce(mockedBooking);
+      const booking = await bookingService.bookRoom(1, 1);
+      expect(booking).toEqual(mockedBooking);
+    });
 
     it('should return notFoundError when booking is not found', async () => {
       jest.spyOn(roomRepository, 'getRoomById').mockResolvedValueOnce(null);
